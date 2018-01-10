@@ -252,7 +252,7 @@ public class UserController {
 			}     
 		}
 	
-	@RequestMapping(value="/changerep")//修改
+	@RequestMapping(value="/changerep",method = RequestMethod.POST)//修改
 	@ResponseBody
 	public String changerep(String videoweb,String videoweburl,String webtype,String videourl,String collrate){
 		RepUser list =  (RepUser)repuserdao.findByVideoweb(videoweb);
@@ -299,14 +299,9 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/deleterep")
-	public Object deleterep(String videoweb,String videoweburl){
-		RepUser rep = (RepUser) repuserdao.findByVideowebAndVideoweburl(videoweb, videoweburl);
-		if(rep == null) return "error";
-		else {
-			int id = rep.getId();
-			repuserdao.delete(id);
-			return "success";
-		}
+	public Object deleterep(int id){
+		repuserdao.delete(id);
+		return "success";
 	}
 
 }
